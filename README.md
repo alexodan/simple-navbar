@@ -21,8 +21,8 @@ Definitely credits to Ignacio and his template to set this up! https://github.co
 In order to run it local, follow these steps:
 
 ```bash
-- `npm i --save @fortawesome/fontawesome-svg-core` # for now depending on this for the icons
-- `npm install ...`
+- npm i --save @fortawesome/fontawesome-svg-core # for now depending on this for the icons
+- npm install ...
 ```
 
 ## Usage:
