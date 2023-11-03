@@ -1,2 +1,2 @@
-import './tailwind/theme.css'
-export * from './components'
+export { Navbar, NavbarItem } from './components'
+export type { NavbarProps, NavbarItemProps } from './components'

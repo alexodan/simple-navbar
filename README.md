@@ -1,46 +1,92 @@
-# ⚛️⚡ Vite + React + Typescript Component Library Template
+# A Simple Navbar component made with React
 
-## Features
+## Site
 
-- ⚛️ [React 18](https://reactjs.org/)
-- 📚 [Storybook 7](https://storybook.js.org/) - Components preview
-- 🖌️ [Tailwind CSS 3](https://tailwindcss.com/)
-- ⏩ [Vite](https://vitejs.dev/) - Run and build the project blazingly fast!
-- ⚡ [Vitest](https://vitest.dev/) - Components Unit Testing
-- 📐 [ESLint](https://eslint.org/) & [Prettier](https://prettier.io/) - Formatting and Linting
-- 🌟 [Typescript](https://www.typescriptlang.org/)
-- 🐶 [Husky](https://typicode.github.io/husky) & [Lint Staged](https://www.npmjs.com/package/lint-staged) - Pre-commit Hooks
-- ⏰ [Release Please](https://github.com/googleapis/release-please) — Generate the changelog with the release-please workflow
-- 👷 [Github Actions](https://github.com/features/actions) — Releasing versions to NPM
-- Initial components setup using [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/)
+A demo is hosted using github pages [here](https://alexodan.github.io/navbar-challenge/)
 
-## Getting Started
+## About
 
-1. Create a new repository using this one as template
-2. Clone your repo
-3. Install dependencies with `pnpm i` (first run `corepack enable` to enable pnpm)
-4. Run `pnpm prepare` command to setup [Husky](https://typicode.github.io/husky) pre-commit hooks.
+This repo holds a `Navbar` component, visually similar to the one in this dribbble, it was part of a challenge made in this [other repo](https://github.com/alexodan/navbar-challenge), but I was curious on how to publish it to npm, though it's still a WIP.
 
-## Main Scripts
+https://dribbble.com/shots/5487895-Tab-bar-active-animation/attachments/10896293?mode=media
 
-Always prepending pnpm:
+![Navbar gif](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjZ5MHpudjVoeHVnNTdpaDFheWRvZml3bG43M2FxdG9zNHcweWpyZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qmHC2pILnevhCXbwq5/giphy.gif)
 
-- `dev`: Bootstrap the Storybook preview with Hot Reload.
-- `build`: Builds the static storybook project.
-- `build:lib`: Builds the component library into the **dist** folder.
-- `lint:fix`: Applies linting based on the rules defined in **.eslintrc.js**.
-- `format:prettier`: Formats files using the prettier rules defined in **.prettierrc**.
-- `test`: Runs testing using watch mode.
-- `test:cov`: Runs testing displaying a coverage report.
+## Credits
 
-## Blog Post
+Definitely credits to Ignacio and his template to set this up! https://github.com/IgnacioNMiranda/vite-component-library-template/tree/main
 
-I created a post explaning how to set up this library and publish it to a package registry! You can read it [here](https://igna.hashnode.dev/vite-react-typescript-component-library-template-setup-explanation).
+## Setup (WIP)
 
-## Author
+In order to run it local, follow these steps:
 
-[Ignacio Miranda Figueroa](https://www.linkedin.com/in/ignacio-miranda-figueroa/)
+```bash
+- `npm i --save @fortawesome/fontawesome-svg-core` # for now depending on this for the icons
+- `npm install ...`
+```
 
-## License
+## Usage:
 
-[MIT](LICENSE)
+A small code snippet of its usage:
+
+```jsx
+import { Navbar, NavbarItem } from "simeple-navbar";
+import { faClock, ... } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import "navbar-challenge/dist/style.css";
+
+const initialItems = [{
+    icon: faClock,
+    title: "Time",
+  },
+  ...
+] as const;
+
+type Tab = (typeof initialItems)[number]["title"];
+
+function App() {
+  const [activeTab, setActiveTab] = useState<Tab>(initialItems[0].title);
+
+  const handleItemClicked = ({ title, id }: { title: Tab; id: number }) => {
+    console.log(`Item clicked title ${title} id ${id}`);
+    setActiveTab(title);
+  };
+
+  return (
+    <>
+      <Navbar defaultActive={0}>
+        {initialItems.map((item, i) => (
+          <NavbarItem
+            key={`${item.title}-${i}`}
+            icon={item.icon}
+            title={item.title}
+            onSelect={handleItemClicked}
+          />
+        ))}
+      </Navbar>
+      <div style={{ padding: "10px" }}>Active tab: {activeTab}</div>
+    </>
+  );
+}
+
+export default App;
+```
+
+### Overriding defaults
+
+You can override the default styles providing variables with your own values:
+
+```css
+:root {
+  --navbar-width: 480px;
+  --navbar-dot-size: 12px;
+
+  --light-background: #fff;
+  --light-text: #000;
+
+  --dark-background: #000;
+  --dark-text: #fff;
+
+  --primary: #4c21ea;
+}
+```

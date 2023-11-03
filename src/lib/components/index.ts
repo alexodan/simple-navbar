@@ -1,3 +1,2 @@
-export * from './atoms'
-export * from './molecules'
-export * from './organisms'
+export { Navbar, NavbarItem } from './Navbar'
+export type { NavbarProps, NavbarItemProps } from './Navbar'
